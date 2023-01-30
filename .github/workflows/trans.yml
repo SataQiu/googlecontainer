@@ -41,4 +41,7 @@ jobs:
            docker pull registry.k8s.io/pause:3.8
            docker tag registry.k8s.io/pause:3.8 shidaqiu/pause:3.8
            docker push shidaqiu/pause:3.8
+           docker pull registry.k8s.io/pause:3.7
+           docker tag registry.k8s.io/pause:3.7 shidaqiu/pause:3.7
+           docker push shidaqiu/pause:3.7
            
