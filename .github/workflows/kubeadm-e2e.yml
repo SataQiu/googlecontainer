@@ -41,8 +41,8 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Build node image
         run: |
-           docker pull kindest/base:v20220324-837a3da8
-           /tmp/kubeadm/kinder/kinder build node-image-variant --base-image=kindest/base:v20220324-837a3da8 --image=kindest/node:test --with-init-artifacts=v1.25.6 --loglevel=debug --with-upgrade-artifacts=v1.26.1
+           docker pull kindest/base:v20221102-76f15095
+           /tmp/kubeadm/kinder/kinder build node-image-variant --base-image=kindest/base:v20221102-76f15095 --image=kindest/node:test --with-init-artifacts=v1.25.6 --loglevel=debug --with-upgrade-artifacts=v1.26.1
            docker tag kindest/node:test shidaqiu/node:test
            docker push shidaqiu/node:test
            
