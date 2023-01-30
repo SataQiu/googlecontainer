@@ -1,0 +1,48 @@
+# This is a basic workflow to help you get started with Actions
+
+name: kubeadm-e2e
+
+# Controls when the workflow will run
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Install Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+        
+      - name: Login to DockerHub
+        uses: docker/login-action@v1 
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: '^1.19.0'
+          
+      - name: Build Kinder
+        run: |
+          cd /tmp
+          git clone https://github.com/kubernetes/kubeadm.git
+          cd kubeadm/kinder
+          go build 
+      
+      # Runs a set of commands using the runners shell
+      - name: Build node image
+        run: |
+           docker pull kindest/base:v20220324-837a3da8
+           /tmp/kubeadm/kinder build node-image-variant --base-image=kindest/base:v20220324-837a3da8 --image=kindest/node:test --with-init-artifacts=v1.25.6 --loglevel=debug --with-upgrade-artifacts=v1.26.1
+           docker tag kindest/node:test shidaqiu/node:test
+           docker push shidaqiu/node:test
+           
