@@ -38,8 +38,8 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
-           from="registry.k8s.io/e2e-test-images/agnhost:2.39"
-           to="shidaqiu/agnhost:2.39"
+           from="gcr.io/distroless/static-debian11"
+           to="shidaqiu/static-debian11:latest"
            docker pull $from
            docker tag $from $to
            docker push $to
