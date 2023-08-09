@@ -42,7 +42,7 @@ jobs:
       - name: Build node image
         run: |
            docker pull kindest/base:v20221102-76f15095
-           /tmp/kubeadm/kinder/kinder build node-image-variant --base-image=kindest/base:v20221102-76f15095 --image=kindest/node:test --with-init-artifacts=v1.27.4-31+bd722aa3ff5d67 --loglevel=debug
+           /tmp/kubeadm/kinder/kinder build node-image-variant --base-image=kindest/base:v20221102-76f15095 --image=kindest/node:test --with-init-artifacts=v1.28.0-rc.0.63+b47f20c28df2c5 --loglevel=debug
 
            docker tag kindest/node:test shidaqiu/node:test
            docker push shidaqiu/node:test
