@@ -43,8 +43,11 @@ jobs:
           cd /tmp
           git clone https://github.com/SataQiu/kubernetes.git
           cd kubernetes
+          git remote add upstream https://github.com/kubernetes/kubernetes.git
+          git pull --all
           git checkout local-test-e2e
           make all WHAT=cmd/kubeadm
+          /tmp/kubernetes/_output/local/bin/linux/amd64/kubeadm version
       
       # Runs a set of commands using the runners shell
       - name: Build node image
@@ -63,9 +66,9 @@ jobs:
            docker build -t shidaqiu/node:test -f Dockerfile .
            docker push shidaqiu/node:test
 
-           /tmp/kubeadm/kinder/kinder create cluster --name=kinder-regular --image=shidaqiu/node:test --control-plane-nodes=1 --worker-nodes=1 --loglevel=debug
+           /tmp/kubeadm/kinder/kinder create cluster --name=kinder-regular --image=shidaqiu/node:test --control-plane-nodes=1 --worker-nodes=1 --loglevel=debug 
 
-           /tmp/kubeadm/kinder/kinder do kubeadm-init --name=kinder-regular --loglevel=debug --kubeadm-verbosity=6
+           /tmp/kubeadm/kinder/kinder do kubeadm-init --name=kinder-regular --loglevel=debug --kubeadm-verbosity=6 
 
            /tmp/kubeadm/kinder/kinder do kubeadm-join --name=kinder-regular --loglevel=debug --kubeadm-verbosity=6
 
