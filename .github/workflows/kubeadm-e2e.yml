@@ -58,6 +58,7 @@ jobs:
            FROM kindest/node:test
            ADD kubeadm /usr/bin/kubeadm
            RUN chmod +x /usr/bin/kubeadm
+           EOF
            cd /tmp/docker-build
            docker build -t shidaqiu/node:test -f Dockerfile .
            docker push shidaqiu/node:test
