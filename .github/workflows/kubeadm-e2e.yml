@@ -68,9 +68,9 @@ jobs:
 
            /tmp/kubeadm/kinder/kinder create cluster --name=kinder-regular --image=shidaqiu/node:test --control-plane-nodes=1 --worker-nodes=1 --loglevel=debug 
 
-           /tmp/kubeadm/kinder/kinder do kubeadm-init --name=kinder-regular --loglevel=debug --kubeadm-verbosity=6 --ignore-preflight-errors=KubeletVersion
+           /tmp/kubeadm/kinder/kinder do kubeadm-init --name=kinder-regular --loglevel=debug --kubeadm-verbosity=6 --ignore-preflight-errors=KubeletVersion,SystemVerification
 
-           /tmp/kubeadm/kinder/kinder do kubeadm-join --name=kinder-regular --loglevel=debug --kubeadm-verbosity=6 --ignore-preflight-errors=KubeletVersion
+           /tmp/kubeadm/kinder/kinder do kubeadm-join --name=kinder-regular --loglevel=debug --kubeadm-verbosity=6 --ignore-preflight-errors=KubeletVersion,SystemVerification
 
            /tmp/kubeadm/kinder/kinder do cluster-info --name=kinder-regular --loglevel=debug 
 
