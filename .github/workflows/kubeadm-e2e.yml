@@ -53,8 +53,8 @@ jobs:
       - name: Build node image
         run: |
            docker pull kindest/base:v20221102-76f15095
-           /tmp/kubeadm/kinder/kinder build node-image-variant --base-image=kindest/base:v20221102-76f15095 --image=kindest/node:test --with-init-artifacts=v1.28.0-rc.0.63+b47f20c28df2c5 --loglevel=debug
-          
+           /tmp/kubeadm/kinder/kinder build node-image-variant --base-image=kindest/base:v20221102-76f15095 --image=kindest/node:test --with-init-artifacts=v1.28.1-55+afc6b4eebe7d80 --with-upgrade-artifacts=v1.29.0-alpha.0.661+c9b35b7a271610 --loglevel=debug
+           
            mkdir /tmp/docker-build
            mv /tmp/kubernetes/_output/local/bin/linux/amd64/kubeadm  /tmp/docker-build/kubeadm
            cat <<EOF > /tmp/docker-build/Dockerfile
@@ -73,6 +73,8 @@ jobs:
            /tmp/kubeadm/kinder/kinder do kubeadm-join --name=kinder-regular --loglevel=debug --kubeadm-verbosity=6 --ignore-preflight-errors=KubeletVersion,SystemVerification
 
            /tmp/kubeadm/kinder/kinder do cluster-info --name=kinder-regular --loglevel=debug 
+
+           /tmp/kubeadm/kinder/kinder do kubeadm-upgrade --upgrade-version=v1.29.0-alpha.0.661+c9b35b7a271610 --name=kinder-upgrade --loglevel=debug --kubeadm-verbosity=6
 
            /tmp/kubeadm/kinder/kinder do kubeadm-reset --name=kinder-regular --loglevel=debug --kubeadm-verbosity=6 
 
