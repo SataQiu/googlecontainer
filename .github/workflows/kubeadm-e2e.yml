@@ -60,7 +60,9 @@ jobs:
            cat <<EOF > /tmp/docker-build/Dockerfile
            FROM kindest/node:test
            ADD kubeadm /usr/bin/kubeadm
+           ADD kubeadm /kinder/upgrade/v1.29.0-alpha.0.661+c9b35b7a271610/kubeadm
            RUN chmod +x /usr/bin/kubeadm
+           RUN chmod +x /kinder/upgrade/v1.29.0-alpha.0.661+c9b35b7a271610/kubeadm
            EOF
            cd /tmp/docker-build
            docker build -t shidaqiu/node:test -f Dockerfile .
