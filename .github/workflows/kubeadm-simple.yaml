@@ -34,8 +34,10 @@ jobs:
       - name: Build Kinder
         run: |
           cd /tmp
-          git clone https://github.com/kubernetes/kubeadm.git
-          cd kubeadm/kinder
+          git clone https://github.com/SataQiu/kubeadm.git
+          cd kubeadm
+          git checkout myself-test
+          cd kinder
           go build 
           
       - name: Build my kubeadm
