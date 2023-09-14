@@ -39,8 +39,7 @@ jobs:
           git checkout pull-sandbox-20230913
           cd kinder
           go build 
-          cp /tmp/kubeadm/kinder/kinder /usr/bin/kinder
-          chmod +x /usr/bin/kinder
+          echo "/tmp/kubeadm/kinder" >> $GITHUB_PATH
       
       # Runs a set of commands using the runners shell
       - name: Build node image
