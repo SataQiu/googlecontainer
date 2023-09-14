@@ -31,29 +31,20 @@ jobs:
         with:
           go-version: '^1.19.0'
           
-      - name: Build Kinder
+      - name: Build and Install Kinder
         run: |
           cd /tmp
           git clone https://github.com/SataQiu/kubeadm.git
           cd kubeadm
-          git checkout myself-test
+          git checkout pull-sandbox-20230913
           cd kinder
           go build 
-          
-      - name: Build my kubeadm
-        run: |
-          cd /tmp
-          git clone https://github.com/SataQiu/kubernetes.git
-          cd kubernetes
-          git remote add upstream https://github.com/kubernetes/kubernetes.git
-          git pull --all
-          git checkout local-test-e2e
-          make all WHAT=cmd/kubeadm
-          /tmp/kubernetes/_output/local/bin/linux/amd64/kubeadm version
+          cp /tmp/kubeadm/kinder/kinder /usr/bin/kinder
+          chmod +x /usr/bin/kinder
       
       # Runs a set of commands using the runners shell
       - name: Build node image
         run: |
            docker pull kindest/base:v20221102-76f15095
-           /tmp/kubeadm/kinder/build node-image-variant --base-image=kindest/base:v20221102-76f15095 --image=shidaqiu/node:test --with-init-artifacts=v1.27.6-1+21489c3b5a6cad --with-upgrade-artifacts=v1.28.2-1+a68748c7cd04f2 --loglevel=debug
+           kinder build node-image-variant --base-image=kindest/base:v20221102-76f15095 --image=shidaqiu/node:test --with-init-artifacts=v1.27.6-1+21489c3b5a6cad --with-upgrade-artifacts=v1.28.2-1+a68748c7cd04f2 --loglevel=debug
            docker push shidaqiu/node:test
