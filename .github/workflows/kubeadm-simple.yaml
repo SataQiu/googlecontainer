@@ -53,11 +53,8 @@ jobs:
            echo "---------------------------------------------"
            echo "----Old v1.28 kubeadm generated etcd.yaml----"
            echo "---------------------------------------------"
-           docker exec -it kinder-upgrade-control-plane-1  cat /etc/kubernetes/manifests/etcd.yaml
+           docker exec kinder-upgrade-control-plane-1  cat /etc/kubernetes/manifests/etcd.yaml
            kinder delete cluster --name=kinder-upgrade
-
-           kinder build node-image-variant --base-image=kindest/base:v20221102-76f15095 --image=shidaqiu/node:test --with-init-artifacts=v1.28.2-1+a68748c7cd04f2 --with-upgrade-artifacts=v1.29.0-alpha.0.802+a68093a3ffb552 --loglevel=debug
-           docker push shidaqiu/node:test
            
            kinder build node-image-variant --base-image=kindest/base:v20221102-76f15095 --image=kindest/node:test --with-init-artifacts=v1.28.2-7+728862ded5e9d8 --with-upgrade-artifacts=v1.29.0-alpha.0.806+4abf29c5c86349 --loglevel=debug
            
@@ -66,5 +63,5 @@ jobs:
            echo "---------------------------------------------"
            echo "----New v1.28 kubeadm generated etcd.yaml----"
            echo "---------------------------------------------"
-           docker exec -it kinder-upgrade-control-plane-1  cat /etc/kubernetes/manifests/etcd.yaml
+           docker exec kinder-upgrade-control-plane-1  cat /etc/kubernetes/manifests/etcd.yaml
            kinder delete cluster --name=kinder-upgrade
