@@ -36,7 +36,7 @@ jobs:
           cd /tmp
           git clone https://github.com/SataQiu/kubeadm.git
           cd kubeadm
-          git checkout my-test
+          git checkout pull-sandbox-20230913
           cd kinder
           go build 
           echo "/tmp/kubeadm/kinder" >> $GITHUB_PATH
