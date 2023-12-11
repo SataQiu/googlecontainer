@@ -38,8 +38,8 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
-           from="registry.k8s.io/etcd:3.5.11"
-           to="shidaqiu/etcd:3.5.11"
+           from="registry.k8s.io/etcd:3.5.10"
+           to="shidaqiu/etcd:3.5.10"
            docker pull $from
            docker tag $from $to
            docker push $to
